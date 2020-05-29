@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:flutter_stock/classes/stock_class.dart';
+import 'package:flutter_stock/classes/stock.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -17,12 +16,7 @@ class StockDataBase {
   }
 
   Future<Database> get db async {
-    // if (_database != null) {
-    //   return _database;
-    // }
-
     _database = await init();
-
     return _database;
   }
 
@@ -45,16 +39,7 @@ class StockDataBase {
     print(db);
   }
 
-// ,
-//         series TEXT,
-//         date_listing TEXT,
-//         paid_value INTEGER,
-//         mkt_lot INTEGER,
-//         isin_num TEXT,
-//         face_value INTEGER
-  void _onUpgrade(Database db, int oldVersion, int newVersion) {
-    // Run migration according database versions
-  }
+  void _onUpgrade(Database db, int oldVersion, int newVersion) {}
 
   Future<int> addStock(Stock stock) async {
     var client = await db;

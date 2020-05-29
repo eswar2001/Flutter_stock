@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'screens/stock_list_updated.dart';
+import 'screens/stock_list.dart';
 
 void main() {
   runApp(MaterialApp(

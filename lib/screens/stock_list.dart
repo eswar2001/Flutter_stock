@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stock/classes/stock_class.dart';
+import 'package:flutter_stock/classes/stock.dart';
 import 'package:flutter_stock/models/db_helper.dart';
 import 'package:flutter_stock/screens/google_finace.dart';
-import 'package:flutter_stock/screens/web_view.dart';
+import 'package:flutter_stock/screens/tradingview.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/services.dart' show rootBundle;
