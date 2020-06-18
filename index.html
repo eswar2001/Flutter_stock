@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var symbol = window.location.hash;
+            const urlParams = new URLSearchParams(window.location.search);
+            const apiKey = urlParams.get('apiKey');
+            symbol = symbol.replace('#', '');
+            const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + symbol +
+                '&outputsize=compact&interval=1min&apikey=' + apiKey;
+            console.log(url);
+            var dataPoints = [];
+            var chart = {
+                animationEnabled: true,
+                theme: "dark2",
+                axisX: {},
+                axisY: {
+                    includeZero: false,
+                    title: "Price"
+                },
+                zoomEnabled: true,
+                data: [{
+                    type: "candlestick",
+                    dataPoints: dataPoints,
+                    yValueFormatString: "$###0.00",
+                    risingColor: "#CBE8C8",
+                    fallingColor: "#FFCCCC",
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(chart);
+            $.getJSON(url, function (data) {
+                console.log(data);
+                if (!(data["Note"] ===
+                        "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+                    )) {
+                    var i = 0;
+                    for (date in data["Time Series (1min)"]) {
+                        i++;
+                        var d = date.split(" ")[1];
+                        if (data["Meta Data"]["3. Last Refreshed"].split(" ")[0] === date.split(" ")[0])
+                            dataPoints.push({
+                                x: new Date(date),
+                                y: [
+                                    parseFloat(data["Time Series (1min)"][date]["1. open"]),
+                                    parseFloat(data["Time Series (1min)"][date]["2. high"]),
+                                    parseFloat(data["Time Series (1min)"][date]["3. low"]),
+                                    parseFloat(data["Time Series (1min)"][date]["4. close"]),
+                                ]
+                            });
+
+                    }
+                    console.log(dataPoints);
+                    $("#chartContainer").CanvasJSChart().render();
+                } else {
+                    alert(
+                        "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+                    );
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="chartContainer" style="height: 370px; width: 70%;"></div>
+</body>
+
+</html>
+
+</html>
