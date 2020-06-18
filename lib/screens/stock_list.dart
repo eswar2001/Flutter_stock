@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stock/classes/stock.dart';
 import 'package:flutter_stock/models/db_helper.dart';
-import 'package:flutter_stock/screens/google_finace.dart';
+import 'package:flutter_stock/screens/select.dart';
 import 'package:flutter_stock/screens/tradingview.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -94,21 +94,6 @@ class _StockListState extends State<StockList> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FloatingActionButton(
-                heroTag: "btn1",
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => FinanceGoogle(),
-                    ),
-                  );
-                },
-                child: Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                backgroundColor: Colors.purple[200],
-              ),
-              FloatingActionButton(
                 heroTag: "btn2",
                 tooltip: 'To add wish list',
                 child: Icon(
@@ -164,7 +149,7 @@ class _StockListState extends State<StockList> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            WebPageView(stockName: favs[index].symbol),
+                            Selectpage(symbol: favs[index].symbol),
                       ),
                     );
                   },
