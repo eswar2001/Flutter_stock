@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stock/classes/stock.dart';
 import 'package:flutter_stock/models/db_helper.dart';
-import 'package:flutter_stock/screens/select.dart';
-import 'package:flutter_stock/screens/tradingview.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/services.dart' show rootBundle;
