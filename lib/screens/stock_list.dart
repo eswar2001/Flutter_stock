@@ -9,6 +9,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:lottie/lottie.dart';
 
 import '../main.dart';
+import 'custom_finace.dart';
 
 List<Stock> favs = [];
 final db = StockDataBase();
@@ -149,7 +150,7 @@ class _StockListState extends State<StockList> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            Selectpage(symbol: favs[index].symbol),
+                            FinanceGoogle(stockName: favs[index].symbol),
                       ),
                     );
                   },
