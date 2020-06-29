@@ -14,9 +14,7 @@ class _FinanceGoogleState extends State<FinanceGoogle> {
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: "https://eswar.dev/Flutter_stock#" +
-          widget.stockName +
-          "?apiKey=GTVXYTXB1HWRRJD8",
+      url: "https://eswar.dev/Flutter_stock#" + widget.stockName,
       withJavascript: true,
       withZoom: true,
       appBar: AppBar(
