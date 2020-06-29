@@ -12,39 +12,49 @@ class Selectpage extends StatefulWidget {
 class _SelectpageState extends State<Selectpage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
+    return Scaffold(
+      body: ListView(
         children: [
-          FloatingActionButton(
-            heroTag: "btn1",
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => FinanceGoogle(),
-                ),
-              );
-            },
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-            backgroundColor: Colors.purple[200],
+          SizedBox(
+            height: 500.0,
           ),
-          FloatingActionButton(
-            heroTag: "btn1",
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      WebPageView(stockName: widget.symbol),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FloatingActionButton(
+                heroTag: "btn1",
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          FinanceGoogle(stockName: widget.symbol),
+                    ),
+                  );
+                },
+                child: Icon(
+                  Icons.grain,
+                  color: Colors.black,
                 ),
-              );
-            },
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-            backgroundColor: Colors.purple[200],
+                backgroundColor: Colors.purple[200],
+              ),
+              FloatingActionButton(
+                heroTag: "btn1",
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          WebPageView(stockName: widget.symbol),
+                    ),
+                  );
+                },
+                child: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+                backgroundColor: Colors.purple[200],
+              ),
+            ],
           ),
         ],
       ),

@@ -9,12 +9,12 @@ class FinanceGoogle extends StatefulWidget {
 }
 
 class _FinanceGoogleState extends State<FinanceGoogle> {
-  get stockName => null;
-
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: "https://eswar.dev/Flutter_stock/",
+      url: "https://eswar.dev/Flutter_stock#" +
+          widget.stockName +
+          "?apiKey=GTVXYTXB1HWRRJD8",
       withJavascript: true,
       withZoom: true,
       appBar: AppBar(
