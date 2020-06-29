@@ -13,12 +13,9 @@
     <script>
         $(document).ready(function () {
             var symbol = window.location.hash;
-            const urlParams = new URLSearchParams(window.location.search);
-            const apiKey = urlParams.get('apiKey');
             symbol = symbol.replace('#', '');
             const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + symbol +
-                '&outputsize=compact&interval=1min&apikey=' + GTVXYTXB1HWRRJD8;
-            console.log(url);
+                '&interval=1min&apikey=GTVXYTXB1HWRRJD8';
             var dataPoints = [];
             var chart = {
                 animationEnabled: true,
