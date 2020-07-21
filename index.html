@@ -5,10 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -16,64 +24,118 @@
             const urlParams = new URLSearchParams(window.location.search);
             const apiKey = urlParams.get('apiKey');
             symbol = symbol.replace('#', '');
-            const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + symbol +
-                '&outputsize=compact&interval=1min&apikey=' + apiKey;
+            const url = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/' + symbol + '/5m';
             console.log(url);
             var dataPoints = [];
-            var chart = {
-                animationEnabled: true,
-                theme: "dark2",
-                axisX: {},
-                axisY: {
-                    includeZero: false,
-                    title: "Price"
-                },
-                zoomEnabled: true,
-                data: [{
-                    type: "candlestick",
-                    dataPoints: dataPoints,
-                    yValueFormatString: "$###0.00",
-                    risingColor: "#CBE8C8",
-                    fallingColor: "#FFCCCC",
-                }]
-            };
-            $("#chartContainer").CanvasJSChart(chart);
-            $.getJSON(url, function (data) {
-                console.log(data);
-                if (!(data["Note"] ===
-                        "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
-                    )) {
-                    var i = 0;
-                    for (date in data["Time Series (1min)"]) {
-                        i++;
-                        var d = date.split(" ")[1];
-                        if (data["Meta Data"]["3. Last Refreshed"].split(" ")[0] === date.split(" ")[0])
-                            dataPoints.push({
-                                x: new Date(date),
-                                y: [
-                                    parseFloat(data["Time Series (1min)"][date]["1. open"]),
-                                    parseFloat(data["Time Series (1min)"][date]["2. high"]),
-                                    parseFloat(data["Time Series (1min)"][date]["3. low"]),
-                                    parseFloat(data["Time Series (1min)"][date]["4. close"]),
-                                ]
-                            });
-
-                    }
-                    console.log(dataPoints);
-                    $("#chartContainer").CanvasJSChart().render();
+            var dojiPoints = [];
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": url,
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "yahoo-finance15.p.rapidapi.com",
+                    "x-rapidapi-key": "b414d1bfb2msh906f4a3ca579016p1a98b5jsn22a3971c9082"
+                }
+            }
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                if (response["error"] ==
+                    "Something happend, please check your parameters and try again!") {
+                    alert('try with adding ".BO" for BSE or ".NS" for NSE to the suffix of the symbol');
                 } else {
-                    alert(
-                        "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
-                    );
+                    var k = 0;
+                    var str =
+                        '<div class="card mb-3" style="max-width: 540px;"><h5 class="card-title">' +
+                        response[
+                            "meta"].symbol +
+                        '</h5><div class="card-body"><p class="card-text"><strong>chartPreviousClose</strong>:  ' +
+                        response["meta"]
+                        .chartPreviousClose +
+                        '</p><p class="card-text"><strong>currency</strong>:  ' + response["meta"]
+                        .currency +
+                        '</p><p class="card-text"><strong>dataGranularity</strong>:  ' + response[
+                            "meta"]
+                        .dataGranularity +
+                        '</p><p class="card-text"><strong>exchangeName</strong>:  ' + response["meta"]
+                        .exchangeName +
+                        '</p><p class="card-text"><strong>exchangeTimezoneName</strong>:  ' + response[
+                            "meta"].exchangeTimezoneName +
+                        '</p><p class="card-text"><strong>firstTradeDate</strong>: ' + response[
+                            "meta"]
+                        .firstTradeDate + '</p><p class="card-text"><strong>gmtoffset</strong>: ' +
+                        response["meta"]
+                        .gmtoffset +
+                        '</p><p class="card-text"><strong>instrumentType</strong>: ' + response[
+                            "meta"].instrumentType +
+                        '</p><p class="card-text"><strong>previousClose</strong>: ' + response["meta"]
+                        .previousClose +
+                        '</p><p class="card-text"><strong>priceHint</strong>:  ' +
+                        response[
+                            "meta"].priceHint + '</p><p class="card-text"><strong>range</strong>: ' +
+                        response["meta"]
+                        .range +
+                        '</p><p class="card-text"><strong>regularMarketPrice</strong>:  ' + response[
+                            "meta"]
+                        .regularMarketPrice +
+                        '</p><p class="card-text"><strong>regularMarketTime</strong>:  ' + response[
+                            "meta"]
+                        .regularMarketTime +
+                        '</p><p class="card-text"><strong>scale</strong>:  ' + response["meta"].scale +
+                        '</p><p class="card-text"><strong>timezone</strong>:  ' + response["meta"]
+                        .timezone +
+                        '</p></div></div>';
+                    $('#data').append(str);
+                    for (var i in response["items"]) {
+                        k++;
+                        dataPoints.push({
+                            x: response["items"][i]["date"],
+                            y: {
+                                "open": parseFloat(response["items"][i]["open"]),
+                                "high": parseFloat(response["items"][i]["high"]),
+                                "low": parseFloat(response["items"][i]["low"]),
+                                "close": parseFloat(response["items"][i]["close"]),
+                            }
+                        });
+                        if (response["items"][i]["close"] === response["items"][i]["open"]) {
+                            console.log('doji found' + k);
+                            dojiPoints.push({
+                                x: response["items"][i]["date"],
+                                y: {
+                                    "open": parseFloat(response["items"][i]["open"]),
+                                    "high": parseFloat(response["items"][i]["high"]),
+                                    "low": parseFloat(response["items"][i]["low"]),
+                                    "close": parseFloat(response["items"][i]["close"]),
+                                }
+                            });
+                        }
+                    }
+                }
+            }).then(() => {
+                console.log(dojiPoints[dojiPoints.length - 1]);
+                if (dojiPoints[dojiPoints.length - 1]["y"].close >= dataPoints[dataPoints.length - 1][
+                        "y"
+                    ]
+                    .close) {
+                    alert('Sell');
+                } else if (dojiPoints[dojiPoints.length - 1]["y"].close < dataPoints[dataPoints.length -
+                        1]["y"]
+                    .close) {
+                    alert('Buy');
                 }
             });
-
         });
     </script>
 </head>
 
-<body>
-    <div id="chartContainer" style="height: 370px; width: 70%;"></div>
+
+<body id="data">
+    <style>
+        .p {
+            font-size: xx-small;
+            font-weight: 100;
+        }
+    </style>
 </body>
 
 </html>
