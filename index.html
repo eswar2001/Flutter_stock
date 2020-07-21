@@ -37,6 +37,7 @@
                     "x-rapidapi-key": "b414d1bfb2msh906f4a3ca579016p1a98b5jsn22a3971c9082"
                 }
             }
+            var str = '';
             $.ajax(settings).done(function (response) {
                 console.log(response);
                 if (response["error"] ==
@@ -51,7 +52,7 @@
 
                 } else {
                     var k = 0;
-                    var str =
+                    str =
                         '<div class="card mb-3" style="max-width: 540px;"><h5 class="card-title">' +
                         response[
                             "meta"].symbol +
@@ -96,8 +97,7 @@
                         .scale +
                         '</p><p class="card-text"><strong>timezone</strong>:  ' + response["meta"]
                         .timezone +
-                        '</p></div><></div>';
-                    $('#data').append(str);
+                        '</p></div></div>';
                     for (var i in response["items"]) {
                         k++;
                         dataPoints.push({
@@ -131,26 +131,26 @@
                     ]
                     .close) {
                     // alert('Sell');
-                    var d =
+                    var s =
                         '<div class="card text-white bg-danger mb-3" style="max-width: 18rem;"><div class="card-header">Sell</div><div class="card-body"><h5 class="card-title">' +
                         dataPoints[dataPoints.length - 1]["x"] + '</h5><p class="card-text">open: ' +
                         dataPoints[dataPoints.length - 1]["y"].open + '</br>close: ' + dataPoints[
                             dataPoints.length - 1]["y"].close + '</br>low: ' + dataPoints[dataPoints
                             .length - 1]["y"].low + '</br>high: ' + dataPoints[dataPoints.length - 1]
-                        ["y"].high + '</p></div></div>';
+                        ["y"].high + '</p></div></div>' + str;
                     $('#data').append(s);
                 } else if (dojiPoints[dojiPoints.length - 1]["y"].close < dataPoints[dataPoints
                         .length -
                         1]["y"]
                     .close) {
                     // alert('Buy');
-                    var d =
+                    var s =
                         '<div class="card text-white bg-success mb-3" style="max-width: 18rem;"><div class="card-header">Buy</div><div class="card-body"><h5 class="card-title">' +
                         dataPoints[dataPoints.length - 1]["x"] + '</h5><p class="card-text">open: ' +
                         dataPoints[dataPoints.length - 1]["y"].open + '</br>close: ' + dataPoints[
                             dataPoints.length - 1]["y"].close + '</br>low: ' + dataPoints[dataPoints
                             .length - 1]["y"].low + '</br>high: ' + dataPoints[dataPoints.length - 1]
-                        ["y"].high + '</p></div></div>';
+                        ["y"].high + '</p></div></div>' + str;
                     $('#data').append(s);
                 }
             });
@@ -160,13 +160,22 @@
 </head>
 
 
-<body id="data">
+<body>
     <style>
         .p {
             font-size: xx-small;
             font-weight: 100;
         }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
     </style>
+    <div class="container ">
+        <div class="row row-cols-1 row-cols-md-2" id="data"></div>
+    </div>
 </body>
 
 </html>
