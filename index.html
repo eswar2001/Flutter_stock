@@ -97,7 +97,7 @@
                         '</p><p class="card-text"><strong>timezone</strong>:  ' + response["meta"]
                         .timezone +
                         '</p></div><></div>';
-
+                    $('#data').append(str);
                     for (var i in response["items"]) {
                         k++;
                         dataPoints.push({
@@ -154,7 +154,7 @@
                     $('#data').append(s);
                 }
             });
-            $('#data').append(str);
+
         });
     </script>
 </head>
