@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -47,7 +48,7 @@
                         symbol + '.NS' +
                         ' class="btn btn-primary btn-lg ">NSE</a>'
                     );
-                    
+
                 } else {
                     var k = 0;
                     var str =
@@ -95,7 +96,7 @@
                         .scale +
                         '</p><p class="card-text"><strong>timezone</strong>:  ' + response["meta"]
                         .timezone +
-                        '</p></div></div>';
+                        '</p></div><></div>';
                     $('#data').append(str);
                     for (var i in response["items"]) {
                         k++;
