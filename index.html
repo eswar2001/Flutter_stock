@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="1">
+    <meta http-equiv="refresh" content="100">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -44,7 +44,7 @@
                     alert('try with adding ".BO" for BSE or ".NS" for NSE to the suffix of the symbol');
                     $('#data').append(
                         '<a href=https://eswar.dev/Flutter_stock#' + symbol + '.BO' +
-                        ' class="btn btn-primary btn-lg " >BSE</a></br><a href=https://eswar.dev/Flutter_stock' +
+                        ' class="btn btn-primary btn-lg " >BSE</a></br><a href=https://eswar.dev/Flutter_stock#' +
                         symbol + '.NS' +
                         ' class="btn btn-primary btn-lg ">NSE</a>'
                     );
@@ -97,7 +97,7 @@
                         '</p><p class="card-text"><strong>timezone</strong>:  ' + response["meta"]
                         .timezone +
                         '</p></div><></div>';
-                    $('#data').append(str);
+
                     for (var i in response["items"]) {
                         k++;
                         dataPoints.push({
@@ -130,14 +130,31 @@
                         "y"
                     ]
                     .close) {
-                    alert('Sell');
+                    // alert('Sell');
+                    var d =
+                        '<div class="card text-white bg-danger mb-3" style="max-width: 18rem;"><div class="card-header">Sell</div><div class="card-body"><h5 class="card-title">' +
+                        dataPoints[dataPoints.length - 1]["x"] + '</h5><p class="card-text">open: ' +
+                        dataPoints[dataPoints.length - 1]["y"].open + '</br>close: ' + dataPoints[
+                            dataPoints.length - 1]["y"].close + '</br>low: ' + dataPoints[dataPoints
+                            .length - 1]["y"].low + '</br>high: ' + dataPoints[dataPoints.length - 1]
+                        ["y"].high + '</p></div></div>';
+                    $('#data').append(s);
                 } else if (dojiPoints[dojiPoints.length - 1]["y"].close < dataPoints[dataPoints
                         .length -
                         1]["y"]
                     .close) {
-                    alert('Buy');
+                    // alert('Buy');
+                    var d =
+                        '<div class="card text-white bg-success mb-3" style="max-width: 18rem;"><div class="card-header">Buy</div><div class="card-body"><h5 class="card-title">' +
+                        dataPoints[dataPoints.length - 1]["x"] + '</h5><p class="card-text">open: ' +
+                        dataPoints[dataPoints.length - 1]["y"].open + '</br>close: ' + dataPoints[
+                            dataPoints.length - 1]["y"].close + '</br>low: ' + dataPoints[dataPoints
+                            .length - 1]["y"].low + '</br>high: ' + dataPoints[dataPoints.length - 1]
+                        ["y"].high + '</p></div></div>';
+                    $('#data').append(s);
                 }
             });
+            $('#data').append(str);
         });
     </script>
 </head>
