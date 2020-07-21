@@ -41,6 +41,13 @@
                 if (response["error"] ==
                     "Something happend, please check your parameters and try again!") {
                     alert('try with adding ".BO" for BSE or ".NS" for NSE to the suffix of the symbol');
+                    $('#data').append(
+                        '<a href=https://eswar.dev/Flutter_stock#' + symbol + '.BO' +
+                        ' class="btn btn-primary btn-lg " >BSE</a></br><a href=https://eswar.dev/Flutter_stock' +
+                        symbol + '.NS' +
+                        ' class="btn btn-primary btn-lg ">NSE</a>'
+                    );
+                    
                 } else {
                     var k = 0;
                     var str =
@@ -55,9 +62,11 @@
                         '</p><p class="card-text"><strong>dataGranularity</strong>:  ' + response[
                             "meta"]
                         .dataGranularity +
-                        '</p><p class="card-text"><strong>exchangeName</strong>:  ' + response["meta"]
+                        '</p><p class="card-text"><strong>exchangeName</strong>:  ' + response[
+                            "meta"]
                         .exchangeName +
-                        '</p><p class="card-text"><strong>exchangeTimezoneName</strong>:  ' + response[
+                        '</p><p class="card-text"><strong>exchangeTimezoneName</strong>:  ' +
+                        response[
                             "meta"].exchangeTimezoneName +
                         '</p><p class="card-text"><strong>firstTradeDate</strong>: ' + response[
                             "meta"]
@@ -66,20 +75,24 @@
                         .gmtoffset +
                         '</p><p class="card-text"><strong>instrumentType</strong>: ' + response[
                             "meta"].instrumentType +
-                        '</p><p class="card-text"><strong>previousClose</strong>: ' + response["meta"]
+                        '</p><p class="card-text"><strong>previousClose</strong>: ' + response[
+                            "meta"]
                         .previousClose +
                         '</p><p class="card-text"><strong>priceHint</strong>:  ' +
                         response[
-                            "meta"].priceHint + '</p><p class="card-text"><strong>range</strong>: ' +
+                            "meta"].priceHint +
+                        '</p><p class="card-text"><strong>range</strong>: ' +
                         response["meta"]
                         .range +
-                        '</p><p class="card-text"><strong>regularMarketPrice</strong>:  ' + response[
+                        '</p><p class="card-text"><strong>regularMarketPrice</strong>:  ' +
+                        response[
                             "meta"]
                         .regularMarketPrice +
                         '</p><p class="card-text"><strong>regularMarketTime</strong>:  ' + response[
                             "meta"]
                         .regularMarketTime +
-                        '</p><p class="card-text"><strong>scale</strong>:  ' + response["meta"].scale +
+                        '</p><p class="card-text"><strong>scale</strong>:  ' + response["meta"]
+                        .scale +
                         '</p><p class="card-text"><strong>timezone</strong>:  ' + response["meta"]
                         .timezone +
                         '</p></div></div>';
@@ -111,12 +124,14 @@
                 }
             }).then(() => {
                 console.log(dojiPoints[dojiPoints.length - 1]);
-                if (dojiPoints[dojiPoints.length - 1]["y"].close >= dataPoints[dataPoints.length - 1][
+                if (dojiPoints[dojiPoints.length - 1]["y"].close >= dataPoints[dataPoints.length -
+                        1][
                         "y"
                     ]
                     .close) {
                     alert('Sell');
-                } else if (dojiPoints[dojiPoints.length - 1]["y"].close < dataPoints[dataPoints.length -
+                } else if (dojiPoints[dojiPoints.length - 1]["y"].close < dataPoints[dataPoints
+                        .length -
                         1]["y"]
                     .close) {
                     alert('Buy');
