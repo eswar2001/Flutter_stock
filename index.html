@@ -22,9 +22,9 @@
     <script>
         $(document).ready(function () {
             var symbol = window.location.hash;
+            var url = '';
             symbol = symbol.replace('#', '');
-            const url = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/' + symbol + '/5m';
-            console.log(url);
+            url = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/' + symbol + '/5m';
             var dataPoints = [];
             var dojiPoints = [];
             var settings = {
@@ -42,14 +42,7 @@
                 console.log(response);
                 if (response["error"] ==
                     "Something happend, please check your parameters and try again!") {
-                    alert('try with adding ".BO" for BSE or ".NS" for NSE to the suffix of the symbol');
-                    $('#data').append(
-                        '<a href=https://eswar.dev/Flutter_stock#' + symbol + '.BO' +
-                        ' class="btn btn-primary btn-lg " >BSE</a></br><a href=https://eswar.dev/Flutter_stock#' +
-                        symbol + '.NS' +
-                        ' class="btn btn-primary btn-lg ">NSE</a>'
-                    );
-
+                    alert('Api failed to fetch data ');
                 } else {
                     var k = 0;
                     str =
