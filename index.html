@@ -21,8 +21,6 @@
     <script>
         $(document).ready(function () {
             var symbol = window.location.hash;
-            const urlParams = new URLSearchParams(window.location.search);
-            const apiKey = urlParams.get('apiKey');
             symbol = symbol.replace('#', '');
             const url = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/' + symbol + '/5m';
             console.log(url);
